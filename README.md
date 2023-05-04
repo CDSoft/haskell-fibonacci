@@ -1,4 +1,4 @@
-% Super fast recursive Fibonacci implementation in Haskell
+# Super fast recursive Fibonacci implementation in Haskell
 
 The Fibonacci sequence is a classical hello-world application for functional
 programming. The challenge here is to get a fast implementation. We will first
