@@ -315,7 +315,7 @@ largeFibValue = do
     putStrLn $ "fastFib "++fmt (fromIntegral n)++" = "++fn'++" ("++fmt (fromIntegral nbDigits)++" digits)"
 
 fmt :: Integer -> String
-fmt = intercalate " " . reverse . map reverse . chunksOf 3 . reverse . show
+fmt = unwords . reverse . map reverse . chunksOf 3 . reverse . show
 \end{code}
 
 Tests results
