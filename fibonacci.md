@@ -90,8 +90,8 @@ $n$. For such values $F_n$ can not be coded by machine integers. $F_n$
 can be an arbitrary large integer (`Integer` type in Haskell).
 
 This function is very simple but also very slow. Its complexity is
-$\mathcal{O}(F_n)$ and $F_n$ increases very fast since
-$F_n \sim \frac{1}{\sqrt{5}}\left(\frac{1+\sqrt{5}}{2}\right)^n$.
+$\mathcal{O}(F_n)$ and $F_n$ increases very fast since $F_n \sim
+\frac{1}{\sqrt{5}}\left(\frac{1+\sqrt{5}}{2}\right)^n$.
 
 # Iterative Fibonacci definition
 
@@ -187,8 +187,10 @@ now have four recursions but:
 2.  By choosing $k$ wisely some redundant computations can be avoided
 
 Intuitively if $k$ is close to $n-k$ then subtrees will be close too. If
-$k = n-k$ (i.e. $k = \frac{n}{2}$) then the first term of $F_n$ is a
-square ($F_k = F_{n-k}$).
+$k =
+n-k$ (i.e. $k = \frac{n}{2}$) then the first term of $F_n$ is a square
+($F_k =
+F_{n-k}$).
 
 **First case**: n is even ($n = 2k$)
 
@@ -311,13 +313,13 @@ largeFibValue = do
     putStrLn $ "fastFib "++fmt (fromIntegral n)++" = "++fn'++" ("++fmt (fromIntegral nbDigits)++" digits)"
 
 fmt :: Integer -> String
-fmt = intercalate " " . reverse . map reverse . chunksOf 3 . reverse . show
+fmt = unwords . reverse . map reverse . chunksOf 3 . reverse . show
 ```
 
 ## Tests results
 
 Tests made on a *Intel(R) Core(TM) i7-9700 CPU @ 3.00GHz* powered by
-*Fedora Linux 38* and *The Glorious Glasgow Haskell Compilation System,
+*Fedora Linux 39* and *The Glorious Glasgow Haskell Compilation System,
 version 9.2.7*.
 
 <div class="comment">
@@ -341,55 +343,55 @@ main = do
 
   |        n | recursiveFib | iterativeFib | fastFib |
   |---------:|-------------:|-------------:|--------:|
-  |       20 |       113 µs |       413 ns |  657 ns |
-  |       21 |       230 µs |       461 ns |  678 ns |
-  |       22 |       294 µs |       460 ns |    2 µs |
-  |       23 |       475 µs |       414 ns |  651 ns |
-  |       24 |       810 µs |         1 µs |  718 ns |
-  |       25 |         1 ms |       528 ns |  753 ns |
-  |       26 |         2 ms |       489 ns |  831 ns |
-  |       27 |         2 ms |       499 ns |  916 ns |
-  |       28 |         4 ms |       635 ns |    1 µs |
-  |       29 |         6 ms |       561 ns |  836 ns |
-  |       30 |        10 ms |       504 ns |  849 ns |
-  |       31 |        16 ms |       644 ns |  884 ns |
-  |       32 |        26 ms |         4 µs |    1 µs |
-  |       33 |        42 ms |       597 ns |  915 ns |
-  |       34 |        68 ms |       626 ns |  951 ns |
-  |       35 |       112 ms |       750 ns |    1 µs |
-  |       36 |       180 ms |       717 ns |    1 µs |
-  |       37 |       289 ms |         3 µs |    4 µs |
-  |       38 |       464 ms |         1 µs |    2 µs |
-  |       39 |       753 ms |       757 ns |    2 µs |
-  |       40 |          1 s |       806 ns |    1 µs |
-  |    20000 |              |         3 ms |  498 µs |
-  |    40000 |              |        23 ms |  785 µs |
+  |       20 |       109 µs |       422 ns |  644 ns |
+  |       21 |       174 µs |       416 ns |  587 ns |
+  |       22 |       278 µs |       397 ns |    1 µs |
+  |       23 |       513 µs |       519 ns |  621 ns |
+  |       24 |       821 µs |         1 µs |  707 ns |
+  |       25 |         1 ms |       469 ns |  718 ns |
+  |       26 |         1 ms |       465 ns |  741 ns |
+  |       27 |         2 ms |       551 ns |  882 ns |
+  |       28 |         4 ms |       642 ns |  868 ns |
+  |       29 |         6 ms |       576 ns |  757 ns |
+  |       30 |        10 ms |       508 ns |  821 ns |
+  |       31 |        15 ms |       635 ns |  815 ns |
+  |       32 |        24 ms |         3 µs |    1 µs |
+  |       33 |        39 ms |       609 ns |  895 ns |
+  |       34 |        63 ms |       618 ns |  924 ns |
+  |       35 |       102 ms |       607 ns |  809 ns |
+  |       36 |       165 ms |       566 ns |    1 µs |
+  |       37 |       268 ms |       691 ns |    1 µs |
+  |       38 |       433 ms |         1 µs |    1 µs |
+  |       39 |       700 ms |       783 ns |    1 µs |
+  |       40 |          1 s |         1 µs |    1 µs |
+  |    20000 |              |         3 ms |  470 µs |
+  |    40000 |              |        23 ms |  722 µs |
   |    60000 |              |        50 ms |    1 ms |
-  |    80000 |              |       101 ms |    2 ms |
-  |   100000 |              |       134 ms |    2 ms |
-  |   120000 |              |       167 ms |    3 ms |
-  |   140000 |              |       197 ms |    3 ms |
-  |   160000 |              |       246 ms |    3 ms |
-  |   180000 |              |       296 ms |    4 ms |
-  |   200000 |              |       396 ms |    5 ms |
-  |   220000 |              |       483 ms |    5 ms |
-  |   240000 |              |       559 ms |    5 ms |
-  |   260000 |              |       697 ms |    6 ms |
-  |   280000 |              |       819 ms |    6 ms |
-  |   300000 |              |       969 ms |    7 ms |
-  |  2500000 |              |              |   60 ms |
-  |  5000000 |              |              |  127 ms |
-  |  7500000 |              |              |  199 ms |
-  | 10000000 |              |              |  265 ms |
-  | 12500000 |              |              |  352 ms |
-  | 15000000 |              |              |  420 ms |
-  | 17500000 |              |              |  499 ms |
-  | 20000000 |              |              |  565 ms |
-  | 22500000 |              |              |  634 ms |
-  | 25000000 |              |              |  761 ms |
-  | 27500000 |              |              |  825 ms |
-  | 30000000 |              |              |  907 ms |
-  | 32500000 |              |              |  971 ms |
+  |    80000 |              |       102 ms |    2 ms |
+  |   100000 |              |       133 ms |    2 ms |
+  |   120000 |              |       171 ms |    2 ms |
+  |   140000 |              |       202 ms |    3 ms |
+  |   160000 |              |       257 ms |    3 ms |
+  |   180000 |              |       317 ms |    4 ms |
+  |   200000 |              |       420 ms |    4 ms |
+  |   220000 |              |       528 ms |    4 ms |
+  |   240000 |              |       607 ms |    5 ms |
+  |   260000 |              |       775 ms |    5 ms |
+  |   280000 |              |       879 ms |    6 ms |
+  |   300000 |              |          1 s |    6 ms |
+  |  2500000 |              |              |   56 ms |
+  |  5000000 |              |              |  120 ms |
+  |  7500000 |              |              |  187 ms |
+  | 10000000 |              |              |  251 ms |
+  | 12500000 |              |              |  336 ms |
+  | 15000000 |              |              |  395 ms |
+  | 17500000 |              |              |  475 ms |
+  | 20000000 |              |              |  536 ms |
+  | 22500000 |              |              |  629 ms |
+  | 25000000 |              |              |  717 ms |
+  | 27500000 |              |              |  773 ms |
+  | 30000000 |              |              |  862 ms |
+  | 32500000 |              |              |  937 ms |
   | 35000000 |              |              |     1 s |
   | 37500000 |              |              |     1 s |
   | 40000000 |              |              |     1 s |
